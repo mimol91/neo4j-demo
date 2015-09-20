@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Neo4j DEMO</h1>
+
+    <p><a href="{{ path('select-related') }}">Relation Demo</a></p>
+
+    <p><a href="{{ path('person') }}">Person CRUD</a></p>
+{% endblock %}

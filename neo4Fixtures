@@ -1,0 +1,36 @@
+MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r
+
+MATCH (Adam) RETURN Adam
+MATCH (Adam {fullName: "Adam"}) RETURN Adam
+
+MATCH (Adam:Person {fullName: "Adam"})<-[:KNOWS]-(friends) RETURN Adam,friends
+
+//jakikolwiek typ relacji.
+MATCH (friends:Person)-[relatedTo]-(:Person {fullName: "Adam"}) RETURN friends.fullName, Type(relatedTo)
+
+
+
+MATCH p=shortestPath(
+  (a:Person {fullName:"Cezary"})-[*]-(b:Person {fullName:"Janusz"})
+)
+RETURN p
+
+
+
+MATCH (:Person {fullName:"Cezary"})-[:KNOWS*2]-(friends)
+RETURN DISTINCT friends
+
+
+//odleglos2 (bez najblizyszch)
+MATCH (p { fullName:"Cezary" })-[:KNOWS*2]-(x)
+WHERE NOT (p)-[:KNOWS]-(x)
+RETURN x
+
+
+
+
+MATCH (c { fullName: 'Cezary' })-[:KNOWS*2..2]->(friend_of_friend)
+WHERE NOT (c)-[:KNOWS]-(friend_of_friend)
+RETURN friend_of_friend.fullName, COUNT(*)
+ORDER BY COUNT(*) DESC , friend_of_friend.fullName
+

@@ -1,0 +1,27 @@
+services:
+    app_core.factory.person_dto:
+        class: App\CoreBundle\DTO\PersonDtoFactory
+        arguments: [@neo4j.manager]
+
+    app_core.form.choices_loader.person:
+        class: App\CoreBundle\Form\PersonChoiceLoader
+        arguments: [@neo4j.manager]
+
+    app_core.form.type.person:
+        class: App\CoreBundle\Form\PersonType
+        arguments: [@app_core.form.choices_loader.person]
+        tags:
+            - { name: form.type, alias: person }
+
+    app_core.form.type.related:
+        class: App\CoreBundle\Form\SelectRelatedPersonFormType
+        arguments: [@app_core.form.choices_loader.person]
+        tags:
+            - { name: form.type, alias: related }
+
+    app_core.services_friend_relation.sqlrelation:
+        class: App\CoreBundle\Services\FriendRelation\SQLRelation
+
+    app_core.object_manager.ogm:
+        class: App\CoreBundle\Services\OgmObjectManager
+        arguments: [@neo4j.manager]

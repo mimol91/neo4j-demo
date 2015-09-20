@@ -1,0 +1,24 @@
+graph:
+  image: graph
+  links:
+   - db
+   - neo4j
+  ports:
+   - "80:80"
+  volumes:
+   - ../:/app
+db:
+  image: mysql
+  ports:
+     - "3306:3306"
+  environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+      MYSQL_USER: xsdev
+      MYSQL_PASSWORD: xsdev
+neo4j:
+  image: neo4j/neo4j
+  ports:
+     - "7474:7474"
+  volumes:
+     - ../data:/data

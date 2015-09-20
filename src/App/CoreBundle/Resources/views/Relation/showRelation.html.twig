@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <img src="{{ asset('graph.png') }}" style="float: right; margin-right: 10%"/>
+    {% for user in relationModel %}
+        {{ user.fullName}}
+        {%  if not loop.last %} &rarr; {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,7 @@
+neo4j_ogm:
+    transport: 'curl'
+    host: neo4j
+    port: 7474
+    username: 'neo4j'
+    password: 'pass'
+    debug: true

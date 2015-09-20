@@ -1,0 +1,14 @@
+select-related:
+    methods: ['GET']
+    path:     /select-related
+    defaults: { _controller: "CoreBundle:Relation:selectRelatedPerson" }
+
+show-related:
+    methods: ['POST']
+    path:     /select-related
+    defaults: { _controller: "CoreBundle:Relation:showRelation" }
+
+demo:
+    path:     /demo
+    defaults: { _controller: "CoreBundle:Relation:demo" }
+

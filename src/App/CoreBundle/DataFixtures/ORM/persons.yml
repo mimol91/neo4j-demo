@@ -1,0 +1,43 @@
+App\CoreBundle\Entity\Person:
+    Cezary:
+        fullName: Cezary
+
+    Aga:
+        fullName: Aga
+        setFriends: [[@Cezary]]
+
+    Andrzej:
+        fullName: Andrzej
+        setFriends: [[@Cezary, @Aga]]
+
+    Asia:
+        fullName: Asia
+        setFriends: [[@Cezary]]
+
+    Artur:
+        fullName: Artur
+        setFriends: [[@Cezary, @Asia]]
+
+    Adam:
+        fullName: Adam
+        setFriends: [[@Cezary, @Artur]]
+
+    Kamil:
+        fullName: Kamil
+        setFriends: [[@Adam, @Artur]]
+
+    Kuba:
+        fullName: Kuba
+        setFriends: [[@Kamil]]
+
+    Krystian:
+        fullName: Krystian
+        setFriends: [[@Andrzej, @Kuba]]
+
+    Kasia:
+        fullName: Kasia
+        setFriends: [[@Aga, @Andrzej, @Krystian]]
+
+    Janusz:
+        fullName: Janusz
+        setFriends: [[@Kasia, @Krystian]]

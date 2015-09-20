@@ -1,0 +1,11 @@
+person:
+    resource: "@CoreBundle/Resources/config/routing/person.yml"
+    prefix:   /person
+
+app:
+    resource: "@CoreBundle/Resources/config/routing/app.yml"
+    prefix:   /
+
+relation:
+    resource: "@CoreBundle/Resources/config/routing/relation.yml"
+    prefix:   /

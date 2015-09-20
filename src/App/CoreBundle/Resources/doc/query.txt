@@ -1,0 +1,85 @@
+MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r
+
+CREATE (Adam:Person {id:2, name:'Adam'})
+CREATE (Asia:Person {id:3, name:'Asia'})
+CREATE (Pawel:Person {id:4, name:'Pawel'})
+CREATE (Marzena:Person {id:5, name:'Marzena'})
+CREATE (Kamil:Person {id:6, name:'Kamil'})
+CREATE (Lukasz:Person {id:7, name:'Lukasz'})
+CREATE (Grzes:Person {id:8, name:'Grzes'})
+CREATE (Artur:Person {id:9, name:'Artur'})
+CREATE (Damian:Person {id:10, name:'Damian'})
+CREATE (Slawek:Person {id:11, name:'Slawek'})
+
+CREATE
+  (Adam)-[:KNOWS]->(Marzena),
+  (Adam)-[:KNOWS]->(Pawel),
+  (Adam)-[:KNOWS]->(Asia),
+  (Adam)-[:KNOWS]->(Artur),
+  (Adam)-[:KNOWS]->(Damian),
+  (Asia)-[:KNOWS]->(Adam),
+  (Asia)-[:KNOWS]->(Pawel),
+  (Asia)-[:KNOWS]->(Lukasz),
+  (Pawel)-[:KNOWS]->(Adam),
+  (Pawel)-[:KNOWS]->(Asia),
+  (Pawel)-[:KNOWS]->(Marzena),
+  (Pawel)-[:KNOWS]->(Kamil),
+  (Marzena)-[:KNOWS]->(Adam),
+  (Marzena)-[:KNOWS]->(Pawel),
+  (Marzena)-[:KNOWS]->(Kamil),
+  (Kamil)-[:KNOWS]->(Pawel),
+  (Kamil)-[:KNOWS]->(Marzena),
+  (Kamil)-[:KNOWS]->(Lukasz),
+  (Lukasz)-[:KNOWS]->(Asia),
+  (Lukasz)-[:KNOWS]->(Kamil),
+  (Lukasz)-[:KNOWS]->(Grzes),
+  (Grzes)-[:KNOWS]->(Lukasz),
+  (Grzes)-[:KNOWS]->(Slawek),
+  (Artur)-[:KNOWS]->(Adam),
+  (Artur)-[:KNOWS]->(Grzes),
+  (Artur)-[:KNOWS]->(Damian),
+  (Damian)-[:KNOWS]->(Adam),
+  (Damian)-[:KNOWS]->(Artur),
+  (Damian)-[:KNOWS]->(Slawek),
+  (Slawek)-[:KNOWS]->(Damian),
+  (Slawek)-[:KNOWS]->(Grzes)
+
+
+
+
+MATCH (Adam) RETURN Adam
+MATCH (Adam {name: "Adam"}) RETURN Adam
+
+MATCH (Adam:Person {name: "Adam"})-[:KNOWS]->(friends) RETURN Adam,friends
+MATCH (friends:Person)-[relatedTo]-(:Person {name: "Adam"}) RETURN friends.name, Type(relatedTo), relatedTo
+
+
+
+MATCH p=shortestPath(
+  (bacon:Person {name:"Adam"})-[*]-(meg:Person {name:"Lukasz"})
+)
+RETURN p
+
+
+
+
+MATCH (bacon:Person {name:"Adam"})-[*2]-(hollywood)
+RETURN DISTINCT hollywood
+
+
+//odleglos2 (bez najblizyszch)
+MATCH (adam { name:"Adam" })-[:KNOWS*2..2]-(x)
+WHERE NOT (adam)-[:KNOWS]-(x)
+RETURN x
+
+
+
+
+MATCH (Adam { name: 'Adam' })-[:KNOWS*2..2]-(friend_of_friend)
+WHERE NOT (Adam)-[:KNOWS]-(friend_of_friend)
+RETURN friend_of_friend.name, COUNT(*)
+ORDER BY COUNT(*) DESC , friend_of_friend.name
+
+
+
+MATCH (a)-[:KNOWS]->(m)<-[:DIRECTED]-(d) RETURN a,m,d LIMIT 10
