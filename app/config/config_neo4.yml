@@ -3,5 +3,5 @@ neo4j_ogm:
     host: neo4j
     port: 7474
     username: 'neo4j'
-    password: 'pass'
+    password: 'neo'
     debug: true

@@ -1,23 +1,23 @@
 graph:
-  image: graph
+  image: jakubsacha/symfony-docker:php5-dev
   links:
    - db
    - neo4j
   ports:
    - "80:80"
   volumes:
-   - ../:/app
+   - ../:/var/www/html
 db:
-  image: mysql
+  image: mysql:5.6
   ports:
      - "3306:3306"
   environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: root
-      MYSQL_USER: xsdev
-      MYSQL_PASSWORD: xsdev
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_pass
 neo4j:
-  image: neo4j/neo4j
+  image: neo4j
   ports:
      - "7474:7474"
   volumes:
